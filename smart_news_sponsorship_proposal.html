@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart News Lab - Paquete de Patrocinios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .header:hover {
+            transform: translateY(-5px);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:nth-child(2) {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+        
+        .stat-card:nth-child(3) {
+            background: linear-gradient(135deg, #45b7d1, #96c93d);
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            background: white;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .audience-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .audience-card h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .pricing-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pricing-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+        
+        .price-highlight {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.1em;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .benefits-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-top: 40px;
+            color: white;
+        }
+        
+        .cta-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ee5a52, #c0392b);
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header animated">
+            <h1>🧠 Smart News Lab</h1>
+            <p class="subtitle">Paquete de Patrocinios Premium</p>
+            <p><strong>Newsletter semanal con contenido de calidad</strong></p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">11K+</div>
+                    <div class="stat-label">Suscriptores Activos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50%</div>
+                    <div class="stat-label">Tasa de Apertura</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Países Principales</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section animated">
+            <h2 class="section-title">
+                <span class="emoji">🎯</span>
+                Nuestra Audiencia
+            </h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h4>👩‍🎤 Perfil Demográfico</h4>
+                    <p>Audiencia mayoritariamente femenina, comprometida con temas sociales, culturales y políticos</p>
+                </div>
+                <div class="audience-card">
+                    <h4>🌍 Alcance Global</h4>
+                    <p>Presencia destacada en España, Brasil, Argentina, México y Estados Unidos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section animated">
+            <h2 class="section-title">
+                <span class="emoji">💰</span>
+                Opciones de Patrocinio
+            </h2>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Formato</th>
+                        <th>Posición</th>
+                        <th>Contenido</th>
+                        <th>Precio (EUR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Texto + enlace</strong></td>
+                        <td>Parte superior (A)</td>
+                        <td>1 párrafo (máx. 500 caracteres) con enlace</td>
+                        <td class="price-highlight">200 €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Texto + imagen + enlace</strong></td>
+                        <td>Parte superior (A)</td>
+                        <td>1 párrafo + 1 imagen (600x400 px) + enlace</td>
+                        <td class="price-highlight">280 €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Texto + enlace</strong></td>
+                        <td>Parte media (B)</td>
+                        <td>1 párrafo + enlace</td>
+                        <td class="price-highlight">150 €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Texto + imagen + enlace</strong></td>
+                        <td>Parte media (B)</td>
+                        <td>1 párrafo + imagen + enlace</td>
+                        <td class="price-highlight">220 €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Texto + enlace</strong></td>
+                        <td>Parte inferior (C)</td>
+                        <td>1 párrafo + enlace</td>
+                        <td class="price-highlight">100 €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Texto + imagen + enlace</strong></td>
+                        <td>Parte inferior (C)</td>
+                        <td>1 párrafo + imagen + enlace</td>
+                        <td class="price-highlight">160 €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Newsletter dedicada (D)</strong></td>
+                        <td>Contenido exclusivo, 100% sobre la marca</td>
+                        <td>A consultar</td>
+                        <td class="price-highlight">desde 450 €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section animated">
+            <h2 class="section-title">
+                <span class="emoji">⭐</span>
+                ¿Por qué elegir Smart News Lab?
+            </h2>
+            <ul class="benefits-list">
+                <li><strong>📊 Resultados superiores:</strong> 50% de tasa de apertura vs 30-35% del promedio del sector</li>
+                <li><strong>🎯 Audiencia cualitativa:</strong> Comunidad comprometida con contenidos de calidad</li>
+                <li><strong>🔒 Entorno de confianza:</strong> Posicionamiento en un espacio de alta credibilidad</li>
+                <li><strong>👁️ Mirada crítica:</strong> Lectoras interesadas en contenidos con perspectiva humana</li>
+                <li><strong>📈 Métricas transparentes:</strong> Reportes detallados de apertura y clics</li>
+            </ul>
+        </div>
+
+        <div class="content-section animated">
+            <h2 class="section-title">
+                <span class="emoji">📋</span>
+                Condiciones del Servicio
+            </h2>
+            <ul class="benefits-list">
+                <li><strong>✍️ Libertad editorial:</strong> Contenido desarrollado por nuestra editora garantizando coherencia y autenticidad</li>
+                <li><strong>🖼️ Formato de imágenes:</strong> JPG o PNG requeridos</li>
+                <li><strong>⏰ Planificación:</strong> Envío programado con mínimo 5 días hábiles de antelación</li>
+                <li><strong>📊 Reportes incluidos:</strong> Métricas de apertura y clics post-envío</li>
+            </ul>
+        </div>
+
+        <div class="cta-section animated">
+            <h2 class="cta-title">¿Listo para potenciar tu marca?</h2>
+            <p style="font-size: 1.1em; margin-bottom: 30px;">
+                Únete a una comunidad de más de 11,000 lectores comprometidos y posiciona tu marca en un entorno de confianza y alta calidad.
+            </p>
+            <a href="mailto:hola@smartnewslab.com?subject=Propuesta de Patrocinio - Smart News Lab&body=Hola,%0A%0AEstoy interesado/a en las opciones de patrocinio de Smart News Lab.%0A%0APor favor, envíenme más información sobre:%0A- [Especificar tipo de patrocinio de interés]%0A- [Fechas tentativas]%0A- [Cualquier consulta adicional]%0A%0AGracias,%0A[Tu nombre]%0A[Tu empresa]%0A[Tu contacto]" class="cta-button">
+                📧 Enviar una Propuesta
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Animación de entrada progresiva
+        const animatedElements = document.querySelectorAll('.animated');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
+                }
+            });
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Efecto hover en las tarjetas de estadísticas
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) rotateY(5deg)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
